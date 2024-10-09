@@ -2,6 +2,45 @@
 
 {% block content %}
 
-Home funciona!
+<h3>Lista de Tarefas</h3>
+
+{% if page.action == 'del' %}
+
+<p>Tarefa apagada!</p>
+
+{% endif %}
+
+<table>
+
+    <tr>
+        <th>Nome</th>
+        <th>Expira</th>
+        <th>Ações</th>
+    </tr>
+
+    {% for task in page.tasks %}
+
+    <tr>
+        <td>{{ task.name }}</td>
+        <td>{{ task.expire }}</td>
+        <td>
+            <small>
+                {% if task.status == 'pending' %}
+                <button title="Marcar como concluída" onclick="location.href='/edit/{{ task.id }}'">&#x2713;</button>
+                {% endif %}
+                <button title="Apagar" onclick="location.href='/del/{{ task.id }}'">&#128465;</button>
+            </small>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">{{ task.description }}</td>
+    </tr>
+    <tr>
+        <td colspan="3"><hr></td>
+    </tr>
+
+    {% endfor %}
+
+</table>
 
 {% endblock %}
