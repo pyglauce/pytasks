@@ -114,6 +114,22 @@ def delete(id):
     return redirect(url_for('home', ac='del'))
 
 
+@app.route('/check/<id>')
+def check(id):
+
+    sql = '''
+        UPDATE task 
+        SET status = 'completed'
+        WHERE id = %s
+    '''
+    cur = mysql.connection.cursor()
+    cur.execute(sql, (id,))
+    mysql.connection.commit()
+    cur.close()
+
+    return redirect(url_for('home', ac='com'))
+
+
 @app.errorhandler(404)
 def error(e):
     return f'Erro 404 {e}', 404

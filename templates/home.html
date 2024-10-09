@@ -8,6 +8,10 @@
 
 <p>Tarefa apagada!</p>
 
+{% elif page.action == 'com' %}
+
+<p>Tarefa concluída!</p>
+
 {% endif %}
 
 <table>
@@ -16,6 +20,11 @@
         <th>Nome</th>
         <th>Expira</th>
         <th>Ações</th>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <hr>
+        </td>
     </tr>
 
     {% for task in page.tasks %}
@@ -26,7 +35,7 @@
         <td>
             <small>
                 {% if task.status == 'pending' %}
-                <button title="Marcar como concluída" onclick="location.href='/edit/{{ task.id }}'">&#x2713;</button>
+                <button title="Marcar como concluída" onclick="location.href='/check/{{ task.id }}'">&#x2713;</button>
                 {% endif %}
                 <button title="Apagar" onclick="location.href='/del/{{ task.id }}'">&#128465;</button>
             </small>
@@ -36,7 +45,9 @@
         <td colspan="3">{{ task.description }}</td>
     </tr>
     <tr>
-        <td colspan="3"><hr></td>
+        <td colspan="3">
+            <hr>
+        </td>
     </tr>
 
     {% endfor %}

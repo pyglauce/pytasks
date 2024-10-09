@@ -4,24 +4,39 @@
 
 <h3>Nova tarefa</h3>
 
+{% if page.created %}
+
+<p>Tarefa criada com sucesso!</p>
+
+{% endif %}
+
+<p>Preencha todos os campos para criar uma nova tarefa.</p>
 
 <form action="/new" method="post">
 
     <div>
-        <label for="name">Nome da tarefa <sup title="Digite um nome para sua nova tarefa.">(?)</sup>:</label>
+        <label for="name">
+            Nome da tarefa:
+            <sup title="Obrigatório: digite um nome para sua nova tarefa.">?</sup>
+        </label>
         <input type="text" name="name" id="name" required minlength="3">
     </div>
 
     <div>
-        <label for="description">Descrição da tarefa <sup
-                title="Digite uma descrição detalhada para sua nova tarefa.">(?)</sup>:</label>
+        <label for="description">
+            Descrição da tarefa:
+            <sup title="Obrigatório: digite uma descrição detalhada para sua nova tarefa.">?</sup>
+        </label>
         <textarea name="description" id="description" required minlength="5"></textarea>
     </div>
 
     <div>
-        <label for="expire">Data da expiração <sup
-                title="Selecione ou digite uma data no formato 'dd/mm/AAAA HH:ii ou deixe em branco para expirar em 30 dias.'">(?)</sup>:</label>
-        <input type="datetime-local" name="expire" id="expire">
+        <label for="expire">
+            Data da expiração:
+            <sup
+                title="Obrigatório: selecione ou digite uma data para a conclusão da tarefa. Ou aceite a data sugerida.'">?</sup>
+        </label>
+        <input type="datetime-local" name="expire" id="expire" required value="{{ page.date30 }}">
     </div>
 
     <div>
@@ -29,5 +44,10 @@
     </div>
 
 </form>
+
+<script>
+    // Evita o reenvio dos formulários ao atualizar a página
+    if (window.history.replaceState) window.history.replaceState(null, null, window.location.href);
+</script>
 
 {% endblock %}
